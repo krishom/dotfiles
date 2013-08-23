@@ -47,13 +47,20 @@ set sw=2
 set ts=2
 set expandtab
 set hlsearch
+set matchpairs+=<:>
+set tabpagemax=99
+" Enable graphical completions of commands and parameters in command mode (:).
+set wildmode=full
+set wildmenu
 au FilterWritePre * if &diff | set foldmethod=manual | endif
+au BufWritePre * %s/\s\+$//eg  " Trim whitespace from end of lines on save
+
+" Avoid RSI
+imap fj <esc>
 
 map gf :tabnew <cfile><cr>
 map <tab> :tabnext<cr>
 map <s-tab> :tabprevious<cr>
-" Avoid RSI
-imap fj <esc>
 "map <c-tab> :tabnext<cr>
 "map <c-s-tab> :tabprevious<cr>
 "imap <c-tab> <esc>:tabnext<cr>
@@ -79,14 +86,6 @@ imap fj <esc>
     "imap <C-t> <ESC>:tabnew<cr>
 "endif
 
-se matchpairs+=<:>
-set tabpagemax=99
-
 if &term == "screen"
   set term=xterm
 endif
-
-" Enable graphical completions of commands and command parameters in command
-" mode (:).
-set wildmode=full
-set wildmenu
